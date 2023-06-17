@@ -14,19 +14,19 @@ here we collected several datas from different websites;
 for:
 GDP:
 <br>https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=US&start=1960&view=chart
-Inflation: 
+<br>Inflation: 
 <br>https://ycharts.com/indicators/us_inflation_rate#:~:text=Basic%20Info,in%20price%20over%20a%20year
-Interest Rate: 
+<br>Interest Rate: 
 <br>https://tradingeconomics.com/united-states/interest-rate#:~:text=Interest%20Rate%20in%20the%20United,percent%20in%20December%20of%202008
-Oil Price: 
+<br>Oil Price: 
 <br>https://www.statista.com/statistics/262860/uk-brent-crude-oil-price-changes-since-1976/
-Per Capita Income: 
+<br>Per Capita Income: 
 <br>https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=US&start=1960&view=chart
-Population: 
+<br>Population: 
 <br>https://www.macrotrends.net/countries/USA/united-states/population
-sP 500: 
+<br>sP 500: 
 <br>https://www.macrotrends.net/2324/sp-500-historical-chart-data
-Unemployment Rate: 
+<br>Unemployment Rate: 
 <br>https://www.thebalancemoney.com/unemployment-rate-by-year-3305506
 
 ### Correlation Matrix
