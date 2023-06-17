@@ -12,7 +12,7 @@ and for test data-set, our range is: 2005 to 2020
 ### Correlation Matrix
 In this chart, we showed the relationships of the data columns with each other in the form of a matrix.
  
-![alt text]([http://url/to/img.png](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/CorMatrix.png?raw=true))
+![alt text](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/CorMatrix.png?raw=true)
 
 ### 1st Predict Model: Inflation - Unemployment
 We tried to predict inflation based on the unemployment rate.
