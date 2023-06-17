@@ -2,7 +2,7 @@
 R used to learn and visualize some economic relations in america
 In this project we compared 2 ML algorithm, they are
 
-> "Linear Regression" and "Random Forest"
+>  <font color='red'>"Linear Regression"</font> and <font color='red'>"Random Forest"</font> 
 
 in out dataset:
 we kept the train year range between 1960 and 2005
