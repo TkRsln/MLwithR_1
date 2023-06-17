@@ -12,14 +12,22 @@ first step:
 ### Collecting Dataset
 here we collected several datas from different websites;
 for:
-GDP https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=US&start=1960&view=chart
-Inflation: https://ycharts.com/indicators/us_inflation_rate#:~:text=Basic%20Info,in%20price%20over%20a%20year
-Interest Rate: https://tradingeconomics.com/united-states/interest-rate#:~:text=Interest%20Rate%20in%20the%20United,percent%20in%20December%20of%202008
-Oil Price: https://www.statista.com/statistics/262860/uk-brent-crude-oil-price-changes-since-1976/
-Per Capita Income: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=US&start=1960&view=chart
-Population: https://www.macrotrends.net/countries/USA/united-states/population
-sP 500: https://www.macrotrends.net/2324/sp-500-historical-chart-data
-Unemployment Rate: https://www.thebalancemoney.com/unemployment-rate-by-year-3305506
+GDP:
+https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=US&start=1960&view=chart
+Inflation: 
+https://ycharts.com/indicators/us_inflation_rate#:~:text=Basic%20Info,in%20price%20over%20a%20year
+Interest Rate: 
+https://tradingeconomics.com/united-states/interest-rate#:~:text=Interest%20Rate%20in%20the%20United,percent%20in%20December%20of%202008
+Oil Price: 
+https://www.statista.com/statistics/262860/uk-brent-crude-oil-price-changes-since-1976/
+Per Capita Income: 
+https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=US&start=1960&view=chart
+Population: 
+https://www.macrotrends.net/countries/USA/united-states/population
+sP 500: 
+https://www.macrotrends.net/2324/sp-500-historical-chart-data
+Unemployment Rate: 
+https://www.thebalancemoney.com/unemployment-rate-by-year-3305506
 
 ### Correlation Matrix
 In this chart, we showed the relationships of the data columns with each other in the form of a matrix.
