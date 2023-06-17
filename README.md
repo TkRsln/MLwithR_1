@@ -4,7 +4,7 @@ In this project we compared 2 ML algorithm, they are
 
 >  <font color='red'>"Linear Regression"</font> and <font color='red'>"Random Forest"</font> 
 
-in out dataset:
+in our dataset:
 <br>we kept the train year range between 1960 and 2005 
 <br>and for test data-set, our range is: 2005 to 2020
 
