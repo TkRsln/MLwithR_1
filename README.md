@@ -12,7 +12,7 @@ first step:
 ### Collecting Dataset
 here we collected several datas from different websites;
 for:
-GDP:
+<br>GDP:
 <br>https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=US&start=1960&view=chart
 <br>Inflation: 
 <br>https://ycharts.com/indicators/us_inflation_rate#:~:text=Basic%20Info,in%20price%20over%20a%20year
