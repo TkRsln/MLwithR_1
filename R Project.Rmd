@@ -1,0 +1,447 @@
+---
+---
+---
+
+# Create Dataset
+
+\# We determined the data we use in machine learning and found the following data from data sites, respectively. 1.GDP 2. Inflation Rate 3. Interest Rate 4. Oil Pri 5. Per Capita Income 6. Population 7. S&P 500 8. Unemployment Rate.
+
+```{r}
+library(readxl)
+
+#https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=US&start=1960&view=chart
+data_gpd <- read_excel("D:/R2/gdp.xlsx")
+
+#https://ycharts.com/indicators/us_inflation_rate#:~:text=Basic%20Info,in%20price%20over%20a%20year.
+data_enf <- read_excel("D:/R2/Inflation Rate.xlsx")
+
+#https://tradingeconomics.com/united-states/interest-rate#:~:text=Interest%20Rate%20in%20the%20United,percent%20in%20December%20of%202008.
+data_fa <- read_excel("D:/R2/Interest Rate.xlsx")
+
+#https://www.statista.com/statistics/262860/uk-brent-crude-oil-price-changes-since-1976/
+data_be <- read_excel("D:/R2/Oil Price.xlsx")
+
+#https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2021&locations=US&start=1960&view=chart
+data_ge <- read_excel("D:/R2/Per Capita Income.xlsx")
+
+#https://www.macrotrends.net/countries/USA/united-states/population
+data_population <- read_excel("D:/R2/Population.xlsx")
+
+#https://www.macrotrends.net/2324/sp-500-historical-chart-data
+data_sp <- read_excel("D:/R2/s_P500.xlsx")
+
+#https://www.thebalancemoney.com/unemployment-rate-by-year-3305506
+data_unemp <- read_excel("D:/R2/Unemployment Rate.xlsx")
+```
+
+#We have listed the data in order to combine it.
+
+```{r}
+data_list <- list(data_gpd,
+                  data_enf,
+                  data_fa,
+                  data_be,
+                  data_ge,
+                  data_population,
+                  data_sp,
+                  data_unemp)
+```
+
+#Using the merge function, we first combined 1 and 2 of the data we listed, and then combined the remaining ones using for i.
+
+```{r}
+new_df <- data.frame()
+new_df <- merge(data_list[1], data_list[2], by = "Year", all = TRUE)
+for (i in 3:8) {
+  new_df <- merge(new_df, data_list[i], by = "Year", all = TRUE)
+}
+head( new_df,10) 
+
+```
+
+# Pre-Process
+
+#While starting the preprocessing, some of the data had commas and percentiles, as these could cause us problems in machine learning, we eliminated them and then made the data numeric.
+
+```{r}
+data <- new_df
+
+data$GDP <- gsub("[%|,]", "", data$GDP)
+data$Interest_Rates <- gsub("[%|,]", "", data$Interest_Rates)
+data$Inflation_Rate <- gsub("[%|,]", "", data$Inflation_Rate)
+data$Oil._Price <- gsub("[%|,]", "", data$Oil._Price)
+data$Per_Capita_Income <- gsub("[%|,]", "", data$Per_Capita_Income)
+data$Population <- gsub("[%|,]", "", data$Population)
+data$S_P_500 <- gsub("[%|,]", "", data$S_P_500)
+data$Unemployment_Rate <- gsub("[%|,]", "", data$Unemployment_Rate)
+
+
+data$GDP = as.numeric(data$GDP)
+data$Inflation_Rate = as.numeric(data$Inflation_Rate)
+data$Interest_Rates = as.numeric(data$Interest_Rates)
+data$Oil._Price = as.numeric(data$Oil._Price)
+data$Per_Capita_Income = as.numeric(data$Per_Capita_Income)
+data$Population = as.numeric(data$Population)
+data$S_P_500 = as.numeric(data$S_P_500)
+data$Unemployment_Rate = as.numeric(data$Unemployment_Rate)
+
+head(data,10)
+
+```
+
+# Analyze
+
+#After making the data available in R, it was time to analyze them. First of all, we started to create graphics in order to examine the data visually.
+
+#### #Inflation
+
+```{r}
+library(ggplot2)
+ggplot(data,aes(x=Year,y=Inflation_Rate)) +
+  geom_line()+
+  geom_point()+
+  theme_minimal()
+
+```
+
+### #Unemployment
+
+```{r}
+ggplot(data = data, aes(x = Year,y=Unemployment_Rate)) +
+  geom_line() +
+  geom_area(fill = 'darkred',alpha=0.1)
+  labs(x = "Per Year", y = "Unemployment") +
+  theme_minimal()
+```
+
+### #S&P500
+
+```{r}
+ggplot(data = data, aes(x = Year,y=S_P_500)) +
+  geom_line() +
+  geom_area(fill = 'lightgreen',alpha=0.1)
+  labs(x = "Per Year", y = "Unemployment") +
+  theme_minimal()
+```
+
+### #Per Capita Income
+
+```{r}
+ggplot(data = data, aes(x = Year,y=Per_Capita_Income)) +
+  geom_point(color='steelblue') +
+  labs(x = "Per Year", y = "PerCapita") +
+  theme_minimal()
+```
+
+### #Population
+
+```{r}
+ggplot(data = data, aes(x = Year,y=Population)) +
+  geom_line(color='lightblue')+
+  geom_point(color='darkgray') +
+  labs(x = "Per Year", y = "Population") +
+  theme_minimal()
+```
+
+### #Interest Rate
+
+```{r}
+ggplot(data = data, aes(x = Year,y=Interest_Rates)) +
+  geom_line(color='lightblue')+
+  geom_point(color='darkgray') +
+  labs(x = "Per Year", y = "Interest_Rates") +
+  theme_minimal()
+```
+
+# Correlation Matrix
+
+#After the graphs, we tried to find out which data we could establish a relationship between, and for this we decided to use a correlation matrix. The reason for this is that the pairs with the closest results to +1 in the results we will get as a result of this analysis showed us a way.
+
+However, since the range of data we have is very wide at first, we decided to search for the relationship between the data between 1970 and 2000, based on the graphs we have just shown.
+
+As a result, the data pairs we have are respectively
+
+1- Inflation Rate - Unemployment Rate
+
+2- Interest Rate - Inflation Rate.
+
+```{r}
+library(dplyr)
+filtered_data=data %>% filter(Year >= 1960, Year <= 2005)
+cor_matrix <- cor(filtered_data[,-1])
+cor_melted <- as.data.frame(as.table(cor_matrix))
+names(cor_melted) <- c('Var1','Var2','Cor')
+
+ggplot(data = cor_melted, aes(x = Var1, y = Var2, fill = Cor)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white", midpoint = 0) +
+  geom_text(aes(label=round(Cor,2)),color="white",size=3)+
+  labs(x = "", y = "") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+#After the correlation matrix analysis, we produced the binary graphs of the selected data. Here you see the graph of inflation and unemployment.
+
+```{r}
+ggplot(data = data) +
+  geom_line(aes(x = Year, y = Inflation_Rate, color = "Enflasyon")) +
+  geom_line(aes(x = Year, y = Unemployment_Rate, color = "İşsizlik")) +
+  labs(x = "Yıl", y = "Değer") +
+  scale_color_manual(values = c("Enflasyon" = "red", "İşsizlik" = "blue")) +
+  theme_minimal()
+
+
+```
+
+Here you see the graph of inflation and interest.
+
+```{r}
+ggplot(data = data) +
+  geom_line(aes(x = Year, y = Inflation_Rate, color = "Enflasyon")) +
+  geom_line(aes(x = Year, y = Interest_Rates, color = "Faiz")) +
+  labs(x = "Yıl", y = "Değer") +
+  scale_color_manual(values = c("Enflasyon" = "red", "Faiz" = "blue")) +
+  theme_minimal()
+
+
+```
+
+# Model
+
+#After arranging our data, it was time to create a model, first we determined the train data and then we tested these data.
+
+# 1) Inflation - Unemployment
+
+> Datasets
+>
+> The data set we use here can be seen, after training until 1970-1990, we estimated the period between 1990-2000.
+
+```{r}
+train_data = data %>% filter(Year >= 1960, Year <= 2005)
+test_data = data %>% filter(Year > 2005, Year <= 2020)
+```
+
+> Random Forest:
+>
+> Random Forest is a commonly-used machine learning algorithm which combines the output of multiple decision trees to reach a single result. Its ease of use and flexibility have fueled its adoption, as it handles both classification and regression problems.
+>
+> #The first method we used was random forest. This is because random forest can measure the importance of each variable and combines multiple decision trees to form a prediction model.
+
+```{r}
+library(randomForest)
+
+rf_model = randomForest(Inflation_Rate ~ Unemployment_Rate, data=train_data)
+summary(rf_model)
+
+```
+
+> Linear Regression
+>
+> Linear regression analysis is used to predict the value of a variable based on the value of another variable. The variable you want to predict is called the dependent variable. The variable you are using to predict the other variable's value is called the independent variable.
+>
+> The second method we used was Linear regression, because we thought it would help us to understand the relationship between variables.
+
+```{r}
+
+lr_model <- lm(Inflation_Rate ~ Unemployment_Rate, data=train_data)
+summary(lr_model)
+```
+
+> #Prediction Dataframe \## DEGISTI
+>
+> After training the data, it was time to predict.
+
+```{r}
+results_df <- data.frame(
+  Year =numeric(),
+  Actual_Unemployment = numeric(),
+  Regression_Predict = numeric(),
+  RandomForest_Predict= numeric()
+)
+
+pre_rf = predict(rf_model, newdata = data.frame(Unemployment_Rate=test_data$Unemployment_Rate))
+pre_lr = predict(lr_model, newdata = data.frame(Unemployment_Rate=test_data$Unemployment_Rate))
+
+result = data.frame(Year=test_data$Year,Actual_Inflation_Rate=test_data$Inflation_Rate,RF_Predict_Rate=pre_rf,LR_Predict_Rate=pre_lr)
+
+
+result$RF_Err = result$RF_Predict_Rate - result$Actual_Inflation_Rate
+result$LR_Err = result$LR_Predict_Rate - result$Actual_Inflation_Rate
+
+
+head(result,10)
+
+
+```
+
+### Mean Squared Error
+
+After analyzing the predictions , we calculated the mean squared error to determine which estimation is more consistent, and we realized that Linear Regression is more useful for us.
+
+```{r}
+
+rf_mse_1 = mean(result$RF_Err^2)
+cat("Random Forest MSE", rf_mse_1, "\n")
+lr_mse_1 = mean(result$LR_Err^2)
+cat("Linear Regression MSE", lr_mse_1, "\n")
+
+```
+
+Here you can see the comparison graph made by the models with the estimated real unemployment.
+
+```{r}
+ggplot(data = result) +
+  geom_line(aes(x = Year, y = LR_Predict_Rate, color = "LR_Predict_Rate")) +
+  geom_line(aes(x = Year, y = RF_Predict_Rate, color = "RF_Predict_Rate")) +
+  geom_line(aes(x = Year, y = Actual_Inflation_Rate, color = "Actual_Inflation_Rate")) +
+  labs(x = "Year", y = "Inflation") +
+  scale_color_manual(values = c("LR_Predict_Rate" = "red", "RF_Predict_Rate"="orange","Actual_Inflation_Rate" = "yellow")) +
+  theme_minimal()
+```
+
+## 2) Inflation Rate - Interest Rate
+
+This time we trained the data from 1985 to 2000. We tested from 2001 to 2005
+
+We just decided to reuse linear regression because you thought it was more useful.
+
+```{r}
+lr_model <- lm(Inflation_Rate ~ Interest_Rates, data=na.omit(train_data))
+summary(lr_model)
+```
+
+Support Vector Machine \$\$\$
+
+#The objective of the support vector machine algorithm is to find a hyperplane in an N-dimensional space(N --- the number of features) that distinctly classifies the data points.
+
+#We wanted to use a support vector machine instead of a random forest because we thought it had good generalization capacity and was resistant to outliers.
+
+```{r}
+rf_model <- randomForest(Inflation_Rate ~ Interest_Rates, data=train_data)
+summary(rf_model)
+```
+
+After training the models, it's time to test them. First we tested it with linear regression, then we tested it using the support vector machine.
+
+```{r}
+results_df <- data.frame(
+  Year =numeric(),
+  Actual_Inflation_Rate = numeric(),
+  Regression_Predict = numeric(),
+  RF_Predict= numeric()
+)
+
+pre_lr = predict(lr_model, newdata = data.frame(Interest_Rates=test_data$Interest_Rates))
+pre_rf = predict(rf_model, newdata = data.frame(Interest_Rates=test_data$Interest_Rates))
+
+result = data.frame(Year=test_data$Year,Actual_Inflation_Rate=test_data$Inflation_Rate,LR_Predict_Rate=pre_lr,RF_Predict_Rate=pre_rf)
+
+
+result$LR_Err = result$LR_Predict_Rate - result$Actual_Inflation_Rate
+result$RF_Err = result$RF_Predict_Rate - result$Actual_Inflation_Rate
+
+
+head(result,10)
+```
+
+After testing, we calculated mean squared errors to decide which of the two models worked better and decided that linear regression was better.
+
+```{r}
+
+lr_mse_2 = mean(result$LR_Err^2)
+cat("Linear Regression MSE", lr_mse_2, "\n")
+rf_mse_2 = mean(result$RF_Err^2)
+cat("RF MSE", rf_mse_2, "\n")
+```
+
+We re-graphed our predictions.
+
+```{r}
+ggplot(data = result) +
+  geom_line(aes(x = Year, y = LR_Predict_Rate, color = "LR_Inflation")) +
+  geom_line(aes(x = Year, y = RF_Predict_Rate, color = "RF_Inflation")) +
+  geom_line(aes(x = Year, y = Actual_Inflation_Rate, color = "Actual_Inflation")) +
+  labs(x = "Year", y = "Inflation") +
+  scale_color_manual(values = c("LR_Inflation" = "red", "RF_Inflation"="blue","Actual_Inflation" = "yellow")) +
+  theme_minimal()
+```
+
+# 3) 4lü
+
+```{r}
+lr_model <- lm(Inflation_Rate ~ Unemployment_Rate + S_P_500 + Oil._Price + Interest_Rates, data=train_data)
+summary(lr_model)
+```
+
+```{r}
+rf_model <- randomForest(Inflation_Rate ~ Unemployment_Rate + S_P_500 + Oil._Price + Interest_Rates, data=train_data)
+summary(rf_model)
+```
+
+```{r}
+results_df <- data.frame(
+  Year =numeric(),
+  Actual_Inflation_Rate = numeric(),
+  Regression_Predict = numeric(),
+  RF_Predict= numeric()
+)
+
+pre_lr = predict(lr_model, newdata = data.frame(Unemployment_Rate=test_data$Unemployment_Rate,S_P_500=test_data$S_P_500,Oil._Price=test_data$Oil._Price,Interest_Rates=test_data$Interest_Rates))
+
+pre_rf = predict(rf_model, newdata = data.frame(Unemployment_Rate=test_data$Unemployment_Rate,S_P_500=test_data$S_P_500,Oil._Price=test_data$Oil._Price,Interest_Rates=test_data$Interest_Rates))
+
+result = data.frame(Year=test_data$Year,Actual_Inflation_Rate=test_data$Inflation_Rate,LR_Predict_Rate=pre_lr,RF_Predict_Rate=pre_rf)
+
+
+result$LR_Err = result$LR_Predict_Rate - result$Actual_Inflation_Rate
+result$RF_Err = result$RF_Predict_Rate - result$Actual_Inflation_Rate
+
+
+head(result,10)
+```
+
+```{r}
+
+
+lr_mse_3 = mean(result$LR_Err^2)
+cat("Linear Regression MSE", lr_mse_3, "\n")
+rf_mse_3 = mean(result$RF_Err^2)
+cat("RF MSE", rf_mse_3, "\n")
+```
+
+```{r}
+ggplot(data = result) +
+  geom_line(aes(x = Year, y = LR_Predict_Rate, color = "LR_Inflation")) +
+  geom_line(aes(x = Year, y = RF_Predict_Rate, color = "RF_Inflation")) +
+  geom_line(aes(x = Year, y = Actual_Inflation_Rate, color = "Actual_Inflation")) +
+  labs(x = "Year", y = "Inflation") +
+  scale_color_manual(values = c("LR_Inflation" = "red", "RF_Inflation"="blue","Actual_Inflation" = "yellow")) +
+  theme_minimal()
+```
+
+# Sum
+
+```{r}
+my_table <- data.frame(
+  Var1 = c("Random Forest", "Random Forest", "Random Forest","Linear Regression", "Linear Regression", "Linear Regression"),
+  Var2 = c("Model_3", "Model_2", "Model_1","Model_3", "Model_2", "Model_1"),
+  Cor = c(rf_mse_3, rf_mse_2, rf_mse_1,lr_mse_3,lr_mse_2,lr_mse_1)
+)
+mp = mean(my_table$Cor)
+ggplot(data = my_table, aes(x = Var1, y = Var2, fill = Cor)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "darkmagenta", midpoint = mp) +
+  geom_text(aes(label=round(Cor,2)),color="white",size=5)+
+  labs(x = "", y = "",title = "MSE Values for each Method Comparasion") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+
+me_rf=mean(my_table$Cor[1:3])
+cat("In these 3 model comparisons, the average MSE value of Random Forest: \n", me_rf, "\n")
+me_lr=mean(my_table$Cor[4:6])
+cat("In these 3 model comparisons, the average MSE value of Linear Regression: \n", me_lr, "\n")
+```
