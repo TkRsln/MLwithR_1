@@ -15,29 +15,29 @@ In this chart, we showed the relationships of the data columns with each other i
 ![alt text](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/CorMatrix.png?raw=true)
 
 ### 1st Predict Model: Inflation - Unemployment
-We tried to predict inflation based on the unemployment rate.
-According to this prediction, Random forest gave better results by MSE value.
-Random Forest MSE 10.26008
-Linear Regression MSE 11.12079
+<br>We tried to predict inflation based on the unemployment rate.
+<br>According to this prediction, Random forest gave better results by MSE value.
+<br>Random Forest MSE 10.26008
+<br>Linear Regression MSE 11.12079
 
 Here is the chart:
 ![alt text](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/unemp_inf_predict.png?raw=true)
 
 
 ### 2nd Predict Model: Inflation - Interest Rate
-We tried to predict inflation based on the Interest Rate rate.
-According to this prediction, Random forest gave better results by MSE value.
-Linear Regression MSE: 2.077702
-RandomForest MSE: 1.505035
+<br>We tried to predict inflation based on the Interest Rate rate.
+<br>According to this prediction, Random forest gave better results by MSE value.
+<br>Linear Regression MSE: 2.077702
+<br>RandomForest MSE: 1.505035
 
 Here is the chart:
 ![alt text](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/unemp_inf_predict.png?raw=true)
 
 ### 3rd Predict Model: Inflation_Rate  with Unemployment_Rate + S_P_500 + Oil._Price + Interest_Rates 
-We tried to predict inflation based on the Unemployment_Rate, S_P_500, Oil._Price and Interest_Rates 
-According to this prediction, Linear Regression gave better results by MSE value.
-Linear Regression MSE: 2.871658
-RF MSE 6.122257
+<br>We tried to predict inflation based on the Unemployment_Rate, S_P_500, Oil._Price and Interest_Rates 
+<br>According to this prediction, Linear Regression gave better results by MSE value.
+<br>Linear Regression MSE: 2.871658
+<br>RF MSE 6.122257
 
 Here is the chart:
 ![alt text]([http://url/to/img.png](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/4_inf_predict.png?raw=true))
@@ -49,8 +49,8 @@ From the graph shown below, you can see how much "MSE" value the Learning method
 ![alt text](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/ConfusionMatrix.png?raw=true)
 
 Considering these 3 learning conditions, the average "MSE" values of the learning methods are:
-Random Forest avg. MSE: 5.962457
-Linear Regression avg. MSE: 5.356715
+<br>Random Forest avg. MSE: 5.962457
+<br>Linear Regression avg. MSE: 5.356715
 
 
 ### Collecting Dataset
