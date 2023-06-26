@@ -40,7 +40,7 @@ Here is the chart:
 <br>RF MSE 6.122257
 
 Here is the chart:
-![alt text]([http://url/to/img.png](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/4_inf_predict.png?raw=true))
+![alt text](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/4_inf_predict.png?raw=true)
 
 
 ## Sum
