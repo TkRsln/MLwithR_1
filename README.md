@@ -32,7 +32,7 @@ Here is the chart:
 
 Here is the chart:
 ![alt text](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/Inf_Interest.png?raw=true)
-
+ 
 ### 3rd Predict Model: Inflation_Rate  with Unemployment_Rate + S_P_500 + Oil._Price + Interest_Rates 
 <br>We tried to predict inflation based on the Unemployment_Rate, S_P_500, Oil._Price and Interest_Rates 
 <br>According to this prediction, Linear Regression gave better results by MSE value.
