@@ -31,7 +31,7 @@ Here is the chart:
 <br>RandomForest MSE: 1.505035
 
 Here is the chart:
-![alt text](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/Inf_Interest.png?raw=true)
+![alt text](https://github.com/TkRsln/MLwithR_1/blob/main/pictures/interest_inf_predict.png?raw=true)
  
 ### 3rd Predict Model: Inflation_Rate  with Unemployment_Rate + S_P_500 + Oil._Price + Interest_Rates 
 <br>We tried to predict inflation based on the Unemployment_Rate, S_P_500, Oil._Price and Interest_Rates 
